@@ -1,0 +1,6 @@
+[submodule "GLAD"]
+	path = GLAD
+	url = https://github.com/SanyaOgr/GLAD.git
+[submodule "Artery/vendor/GLAD"]
+	path = Artery/vendor/GLAD
+	url = https://github.com/SanyaOgr/GLAD.git
