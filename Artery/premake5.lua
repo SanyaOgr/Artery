@@ -12,6 +12,10 @@ project "Artery"
         "src/**.cpp",
         "src/**.h"
     }
+    -- SOME MAGIC
+    excludes "src/last implementation/**.cpp"
+    excludes "src/last implementation/**.h"
+    -- END)
 
     includedirs { 
         "src", 

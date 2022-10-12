@@ -1,6 +1,6 @@
 workspace "Artery"
-	architecture "x64"
-	startproject "Artery"
+	architecture "x86_64"
+	startproject "Sandbox"
 
 	configurations {
 		 "Debug", 
