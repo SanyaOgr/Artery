@@ -14,9 +14,11 @@ namespace art {
 
 		while (m_isRunning)
 		{
-			int a;
-			std::cin >> a;
-			m_isRunning = (a >= 0);
+			MSG msg;
+			PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE);
+
+			TranslateMessage(&msg);
+			DispatchMessage(&msg);
 		}
 		
 		std::cout << "Stopped\n";

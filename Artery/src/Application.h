@@ -1,3 +1,6 @@
+#pragma once
+#include "Window.h"
+
 namespace art {
 
 	class Application
