@@ -4,6 +4,6 @@
 [submodule "Artery/vendor/GLAD"]
 	path = Artery/vendor/GLAD
 	url = https://github.com/SanyaOgr/GLAD.git
-[submodule "Artery/GLFW"]
-	path = Artery/GLFW
-	url = C:\\Users\\sanya\\dev\\Artery\\Artery\\vendor\\GLFW
+[submodule "Artery/vendor/GLFW"]
+	path = Artery/vendor/GLFW
+	url = https://github.com/SanyaOgr/GLFW.git
