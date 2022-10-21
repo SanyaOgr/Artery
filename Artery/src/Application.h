@@ -12,6 +12,7 @@ namespace art {
 
 	private:
 		bool m_isRunning;
+		Window m_window;
 	};
 
 }

@@ -19,11 +19,13 @@ project "Artery"
 
     includedirs { 
         "src", 
-        "%{IncludeDir.GLAD}" 
+        "%{IncludeDir.GLAD}",
+        "%{IncludeDir.GLFW}" 
     }
 
     links { 
-        "GLAD"
+        "GLAD",
+        "GLFW"
     }
 
     filter "system:windows"

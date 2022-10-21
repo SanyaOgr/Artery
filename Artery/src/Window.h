@@ -1,17 +1,19 @@
 #pragma once
 #include <string>
-
-#include <windows.h>
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
 
 namespace art {
 
 	class Window
 	{
 	public:
-		Window(int width, int height, const std::wstring& title);
+		Window(int width, int height, const std::string& title);
+
+		void Update();
 
 	private:
-		HWND m_hWnd;
+		GLFWwindow* m_glfwHandle;
 	};
 
  }

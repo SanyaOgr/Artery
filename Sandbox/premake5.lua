@@ -17,7 +17,8 @@ project "Sandbox"
 	{
 		"%{wks.location}/Artery/src",
 		"%{wks.location}/Artery/vendor",
-		"%{IncludeDir.GLAD}"
+		"%{IncludeDir.GLAD}",
+		"%{IncludeDir.GLFW}"
 	}
 
 	links

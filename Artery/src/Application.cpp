@@ -4,7 +4,7 @@
 namespace art {
 
 	Application::Application()
-		: m_isRunning(false)
+		: m_isRunning(false), m_window(600, 400, "Test Window :)")
 	{}
 
 	void Application::Run()
@@ -14,11 +14,7 @@ namespace art {
 
 		while (m_isRunning)
 		{
-			MSG msg;
-			PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE);
-
-			TranslateMessage(&msg);
-			DispatchMessage(&msg);
+			m_window.Update();
 		}
 		
 		std::cout << "Stopped\n";
