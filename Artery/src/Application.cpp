@@ -4,15 +4,14 @@
 namespace art {
 
 	Application::Application()
-		: m_isRunning(false), m_window(600, 400, "Test Window :)")
+		: m_active(true), m_window(600, 400, "Test Window :)")
 	{}
 
 	void Application::Run()
 	{
-		m_isRunning = true;
 		std::cout << "Running\n";
 
-		while (m_isRunning)
+		while (m_active)
 		{
 			m_window.Update();
 		}

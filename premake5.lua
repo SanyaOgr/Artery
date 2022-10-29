@@ -7,6 +7,8 @@ workspace "Artery"
 		 "Release"
 	}
 
+	characterset "ASCII"
+
 	outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 	IncludeDir = {}

@@ -4,36 +4,24 @@
 namespace art {
 
 	Window::Window(int width, int height, const std::string& title)
-        : m_glfwHandle(nullptr)
+		: m_params{ title, width, height }
 	{
-		if (!glfwInit())
-		{
-			std::cout << "failed to init GLFW\n";
-		}
-		
-		m_glfwHandle = glfwCreateWindow(width, height, title.c_str(), nullptr, nullptr);
+		m_platformImpl = WindowImpl::Create(width, height, title);
+		m_platformImpl->SetVisible(true);
+	}
 
-		if (!m_glfwHandle)
-		{
-			std::cout << "failed to create GLFW window\n";
-		}
-		
-		glfwMakeContextCurrent(m_glfwHandle);
+	Window::Window(const WindowParams& params)
+		: Window(params.width, params.height, params.title)
+	{}
 
-		if (!gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress)))
-		{
-			std::cout << "failed to init OpenGL context\n";
-		}
-
-		glfwSetCursorPosCallback(m_glfwHandle, [](GLFWwindow*, double xpos, double ypos) {
-			std::cout << "X: " << xpos << "\tY: " << ypos << "\n";
-			});
+	Window::~Window()
+	{
+		delete m_platformImpl;
 	}
 
 	void Window::Update()
 	{
-		glfwPollEvents();
-		glfwSwapBuffers(m_glfwHandle);
+		m_platformImpl->ProcessEvents();
 	}
 
 }

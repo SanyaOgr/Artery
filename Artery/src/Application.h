@@ -11,7 +11,7 @@ namespace art {
 		void Run();
 
 	private:
-		bool m_isRunning;
+		bool m_active;
 		Window m_window;
 	};
 
