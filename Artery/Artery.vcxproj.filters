@@ -20,6 +20,11 @@
     <ClInclude Include="src\platform\windows\WindowsWindowImpl.h">
       <Filter>platform\windows</Filter>
     </ClInclude>
+    <ClInclude Include="src\Events\Event.h" />
+    <ClInclude Include="src\Events\WindowEvent.h" />
+    <ClInclude Include="src\Events\MouseEvent.h" />
+    <ClInclude Include="src\Events\KeyEvent.h" />
+    <ClInclude Include="src\Defines.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp" />

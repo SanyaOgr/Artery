@@ -1,5 +1,7 @@
 #include "WindowsWindowImpl.h"
 
+#include <iostream>
+
 namespace art::platform {
 	
 	WNDCLASSEX WindowsWindowImpl::s_windowClass{ sizeof(WNDCLASSEX) };
@@ -50,7 +52,58 @@ namespace art::platform {
 
 	LRESULT WindowsWindowImpl::globalWndProc(HWND handle, UINT message, WPARAM wParam, LPARAM lParam)
 	{
-		return ::DefWindowProc(handle, message, wParam, lParam);
+		if (message == WM_CREATE)
+		{
+			LONG_PTR window = reinterpret_cast<LONG_PTR>(reinterpret_cast<CREATESTRUCT*>(lParam)->lpCreateParams);
+			SetWindowLongPtrW(handle, GWLP_USERDATA, window);
+		}
+
+		WindowsWindowImpl* window = handle ? reinterpret_cast<WindowsWindowImpl*>(GetWindowLongPtr(handle, GWLP_USERDATA)) : nullptr;
+
+		if (window)
+		{
+			return window->processEvent(message, wParam, lParam);
+		}
+
+		/*if (message == WM_CLOSE)
+			return 0;*/
+
+		return ::DefWindowProcW(handle, message, wParam, lParam);
+	}
+
+	LRESULT WindowsWindowImpl::processEvent(UINT message, WPARAM wParam, LPARAM lParam)
+	{
+		switch (message)
+		{
+			case WM_CLOSE:
+			{
+				WindowClosedEvent e;
+				m_eventCallback(e);
+			}
+			case WM_SIZE:
+			{
+				static int i = 0;
+				i++;
+				if (i > 5)
+				{
+					m_width = LOWORD(lParam);
+					m_height = HIWORD(lParam);
+
+					WindowResizedEvent e(m_width, m_height);
+					m_eventCallback(e);
+				}
+				else
+				{
+					return ::DefWindowProc(m_handle, message, wParam, lParam);
+				}
+			}
+			default:
+			{
+				return ::DefWindowProc(m_handle, message, wParam, lParam);
+			}
+		}
+
+		return 0;
 	}
 
 	void WindowsWindowImpl::registerWindowClass()
@@ -78,7 +131,7 @@ namespace art::platform {
 		}
 	}
 
-	PlatformWindowHandle WindowsWindowImpl::getPlatformHandle()
+	PlatformWindowHandle WindowsWindowImpl::GetPlatformHandle()
 	{
 		return m_handle;
 	}

@@ -16,14 +16,14 @@ namespace art::platform {
 
 		void ProcessEvents() override;
 
+		PlatformWindowHandle GetPlatformHandle() override;
+
 	private:
 		static LRESULT globalWndProc(HWND handle, UINT message, WPARAM wParam, LPARAM lParam);
 
-		LRESULT processEvent(UINT message, WPARAM wParam, LPARAM lParam) { return 0; }
+		LRESULT processEvent(UINT message, WPARAM wParam, LPARAM lParam);
 
 		void registerWindowClass();
-
-		PlatformWindowHandle getPlatformHandle() override;
 
 	private:
 		HWND m_handle;
