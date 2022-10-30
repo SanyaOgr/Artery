@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Events">
+      <UniqueIdentifier>{3A8963B1-262B-8E87-0FE6-A1DBFB2615D8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="platform">
+      <UniqueIdentifier>{4A63C33C-3630-1E48-5F49-0CF04B7553D6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="platform\windows">
+      <UniqueIdentifier>{A44FC440-9048-E392-B97A-C817A5D2C29E}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Application.h" />
+    <ClInclude Include="src\Defines.h" />
+    <ClInclude Include="src\Events\Event.h">
+      <Filter>Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Events\KeyEvent.h">
+      <Filter>Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Events\MouseEvent.h">
+      <Filter>Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Events\WindowEvent.h">
+      <Filter>Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Window.h" />
+    <ClInclude Include="src\platform\PlatformTypes.h">
+      <Filter>platform</Filter>
+    </ClInclude>
+    <ClInclude Include="src\platform\WindowImpl.h">
+      <Filter>platform</Filter>
+    </ClInclude>
+    <ClInclude Include="src\platform\windows\WindowsWindowImpl.h">
+      <Filter>platform\windows</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Application.cpp" />
+    <ClCompile Include="src\Window.cpp" />
+    <ClCompile Include="src\platform\WindowImpl.cpp">
+      <Filter>platform</Filter>
+    </ClCompile>
+    <ClCompile Include="src\platform\windows\WindowsWindowImpl.cpp">
+      <Filter>platform\windows</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
