@@ -3,15 +3,30 @@
 
 namespace art {
 
+	Window::Window()
+		: m_platformImpl(nullptr)
+	{
+	}
+
 	Window::Window(int width, int height, const std::string& title)
 	{
-		m_platformImpl = WindowImpl::Create(width, height, title);
+		Create(width, height, title);
 		m_platformImpl->SetVisible(true);
 	}
 
 	Window::~Window()
 	{
 		delete m_platformImpl;
+	}
+
+	void Window::Create(int width, int height, const std::string& title)
+	{
+		m_platformImpl = WindowImpl::Create(width, height, title);
+	}
+
+	void Window::SetVisible(bool visible)
+	{
+		m_platformImpl->SetVisible(visible);
 	}
 
 	void Window::Update()

@@ -35,6 +35,8 @@ namespace art::platform {
             nullptr,
             GetModuleHandle(nullptr),
             this);
+
+		UpdateWindow(m_handle);
     }
 
 	WindowsWindowImpl::~WindowsWindowImpl()
@@ -68,11 +70,16 @@ namespace art::platform {
 		/*if (message == WM_CLOSE)
 			return 0;*/
 
-		return ::DefWindowProcW(handle, message, wParam, lParam);
+		return ::DefWindowProc(handle, message, wParam, lParam);
 	}
 
 	LRESULT WindowsWindowImpl::processEvent(UINT message, WPARAM wParam, LPARAM lParam)
 	{
+		if (!m_eventCallback)
+		{
+			return ::DefWindowProc(m_handle, message, wParam, lParam);
+		}
+
 		switch (message)
 		{
 			case WM_CLOSE:
@@ -82,20 +89,11 @@ namespace art::platform {
 			}
 			case WM_SIZE:
 			{
-				static int i = 0;
-				i++;
-				if (i > 5)
-				{
-					m_width = LOWORD(lParam);
-					m_height = HIWORD(lParam);
+				m_width = LOWORD(lParam);
+				m_height = HIWORD(lParam);
 
-					WindowResizedEvent e(m_width, m_height);
-					m_eventCallback(e);
-				}
-				else
-				{
-					return ::DefWindowProc(m_handle, message, wParam, lParam);
-				}
+				WindowResizedEvent e(m_width, m_height);
+				m_eventCallback(e);
 			}
 			default:
 			{

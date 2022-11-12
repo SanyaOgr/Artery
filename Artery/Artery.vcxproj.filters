@@ -13,7 +13,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application.h" />
-    <ClInclude Include="src\Defines.h" />
+    <ClInclude Include="src\Macro.h" />
     <ClInclude Include="src\Events\Event.h">
       <Filter>Events</Filter>
     </ClInclude>
@@ -36,6 +36,7 @@
     <ClInclude Include="src\platform\windows\WindowsWindowImpl.h">
       <Filter>platform\windows</Filter>
     </ClInclude>
+    <ClInclude Include="Config.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp" />

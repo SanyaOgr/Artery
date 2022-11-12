@@ -1,10 +1,8 @@
 #pragma once
 
-namespace art {
-
 #ifdef _WIN32
-	#include <Windows.h>
-	using PlatformWindowHandle = HWND;
+	struct HWND__;
+	namespace art {
+		using PlatformWindowHandle = HWND__*;
+	}
 #endif
-
-}

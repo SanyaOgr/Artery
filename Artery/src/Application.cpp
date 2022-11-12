@@ -1,14 +1,20 @@
 #include "Application.h"
 
 #include <iostream>
-#include "Defines.h"
+#include "Macro.h"
 
 namespace art {
 
 	Application::Application()
-		: m_running(true), m_window(600, 400, "Test Window :)")
+		: m_running(true)
 	{
-		m_window.SetEventCallback(ART_BIND_EVENT_FN(Application::OnEvent));
+		m_window = new Window(600, 400, "Cringe");
+		m_window->SetEventCallback(ART_BIND_EVENT_FN(Application::OnEvent));
+	}
+
+	Application::~Application()
+	{
+		delete m_window;
 	}
 
 	void Application::Run()
@@ -17,7 +23,7 @@ namespace art {
 
 		while (m_running)
 		{
-			m_window.Update();
+			m_window->Update();
 		}
 		
 		std::cout << "Stopped\n";

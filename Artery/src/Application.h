@@ -10,6 +10,7 @@ namespace art {
 	{
 	public:
 		Application();
+		virtual ~Application();
 
 		void Run();
 
@@ -23,7 +24,7 @@ namespace art {
 
 	private:
 		bool m_running;
-		Window m_window;
+		Window* m_window;
 	};
 
 }
