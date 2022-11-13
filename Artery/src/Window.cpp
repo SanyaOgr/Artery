@@ -39,4 +39,9 @@ namespace art {
 		m_platformImpl->SetEventCallback(callback);
 	}
 
+	SystemWindowHandle Window::GetSystemHandle() const
+	{
+		return m_platformImpl->GetSystemHandle();
+	}
+
 }

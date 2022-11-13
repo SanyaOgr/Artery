@@ -129,7 +129,7 @@ namespace art::platform {
 		}
 	}
 
-	PlatformWindowHandle WindowsWindowImpl::GetPlatformHandle()
+	SystemWindowHandle WindowsWindowImpl::GetSystemHandle()
 	{
 		return m_handle;
 	}

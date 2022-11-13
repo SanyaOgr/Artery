@@ -13,7 +13,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application.h" />
-    <ClInclude Include="src\Macro.h" />
+    <ClInclude Include="src\Config.h" />
     <ClInclude Include="src\Events\Event.h">
       <Filter>Events</Filter>
     </ClInclude>
@@ -26,23 +26,38 @@
     <ClInclude Include="src\Events\WindowEvent.h">
       <Filter>Events</Filter>
     </ClInclude>
+    <ClInclude Include="src\GraphicsContext.h" />
+    <ClInclude Include="src\Macro.h" />
+    <ClInclude Include="src\Renderer.h" />
     <ClInclude Include="src\Window.h" />
-    <ClInclude Include="src\platform\PlatformTypes.h">
+    <ClInclude Include="src\platform\GraphicsContextImpl.h">
+      <Filter>platform</Filter>
+    </ClInclude>
+    <ClInclude Include="src\platform\SystemWindowHandle.h">
       <Filter>platform</Filter>
     </ClInclude>
     <ClInclude Include="src\platform\WindowImpl.h">
       <Filter>platform</Filter>
     </ClInclude>
+    <ClInclude Include="src\platform\windows\WindowsGraphicsContextImpl.h">
+      <Filter>platform\windows</Filter>
+    </ClInclude>
     <ClInclude Include="src\platform\windows\WindowsWindowImpl.h">
       <Filter>platform\windows</Filter>
     </ClInclude>
-    <ClInclude Include="Config.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp" />
+    <ClCompile Include="src\GraphicsContext.cpp" />
     <ClCompile Include="src\Window.cpp" />
+    <ClCompile Include="src\platform\GraphicsContextImpl.cpp">
+      <Filter>platform</Filter>
+    </ClCompile>
     <ClCompile Include="src\platform\WindowImpl.cpp">
       <Filter>platform</Filter>
+    </ClCompile>
+    <ClCompile Include="src\platform\windows\WindowsGraphicsContextImpl.cpp">
+      <Filter>platform\windows</Filter>
     </ClCompile>
     <ClCompile Include="src\platform\windows\WindowsWindowImpl.cpp">
       <Filter>platform\windows</Filter>

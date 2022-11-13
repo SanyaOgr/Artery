@@ -1,12 +1,21 @@
 #include "WindowsGraphicsContextImpl.h"
 
-namespace art::platform::win {
+#include <glad/glad.h>
+
+namespace art::platform {
 
 	// Constructors, Destructors
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	WindowsGraphicsContextImpl::WindowsGraphicsContextImpl(PlatformWindowHandle windowHandle)
+	WindowsGraphicsContextImpl::WindowsGraphicsContextImpl()
+		: m_attachedWindow(NULL), m_deviceContext(NULL), m_glContext(NULL)
 	{
+	}
+
+	WindowsGraphicsContextImpl::WindowsGraphicsContextImpl(SystemWindowHandle windowHandle)
+		: WindowsGraphicsContextImpl()
+	{
+		//initGLAD();
 		createSurface(windowHandle);
 	}
 
@@ -22,17 +31,14 @@ namespace art::platform::win {
 		{
 			::ReleaseDC(m_attachedWindow, m_deviceContext);
 		}
-
-		//if (m_attachedWindow)
-		//	DestroyWindow(m_attachedWindow);
 	}
 
 	// Public Methods
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	void WindowsGraphicsContextImpl::MakeCurrent(bool current)
+	void WindowsGraphicsContextImpl::SetActive(bool active)
 	{
-		if (current)
+		if (active)
 		{
 			::wglMakeCurrent(m_deviceContext, m_glContext);
 		}
@@ -80,6 +86,16 @@ namespace art::platform::win {
 		m_glContext = ::wglCreateContext(m_deviceContext);
 
 		// wglMakeCurrent ?
+	}
+
+	void WindowsGraphicsContextImpl::initGLAD()
+	{
+		static bool initialized = false;
+		if (!initialized)
+		{
+			initialized = true;
+			gladLoadGL();
+		}
 	}
 
 }

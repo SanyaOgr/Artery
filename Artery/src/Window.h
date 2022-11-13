@@ -20,6 +20,8 @@ namespace art {
 
 		void SetEventCallback(const WindowImpl::EventCallbackFn& callback);
 
+		SystemWindowHandle GetSystemHandle() const;
+
 	private:
 		WindowImpl* m_platformImpl;
 	};

@@ -1,7 +1,12 @@
 #include "WindowImpl.h"
 
-#ifdef _WIN32
+#include "Config.h"
+
+#if defined(ARTERY_SYSTEM_WINDOWS)
+
     #include "platform/windows/WindowsWindowImpl.h"
+    using WindowImplType = art::platform::WindowsWindowImpl;
+
 #endif
 
 namespace art {
@@ -9,9 +14,7 @@ namespace art {
     // static
     WindowImpl* WindowImpl::Create(int width, int height, const std::string& title)
     {
-#ifdef _WIN32
-        return new platform::WindowsWindowImpl(width, height, title);
-#endif
+        return new WindowImplType(width, height, title);
     }
 
     void WindowImpl::SetEventCallback(const WindowImpl::EventCallbackFn& callback)

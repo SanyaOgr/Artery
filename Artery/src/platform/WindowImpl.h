@@ -3,7 +3,7 @@
 #include <string>
 #include <functional>
 
-#include "PlatformTypes.h"
+#include "SystemWindowHandle.h"
 #include "Events/Event.h"
 #include "Events/WindowEvent.h"
 
@@ -21,7 +21,7 @@ namespace art {
 
 		virtual void ProcessEvents() = 0;
 
-		virtual PlatformWindowHandle GetPlatformHandle() = 0;
+		virtual SystemWindowHandle GetSystemHandle() = 0;
 
 		void SetEventCallback(const WindowImpl::EventCallbackFn& callback);
 

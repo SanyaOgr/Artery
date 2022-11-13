@@ -4,6 +4,9 @@
 #include "Events/Event.h"
 #include "Events/WindowEvent.h"
 
+#include "GraphicsContext.h"
+#include "glad/glad.h"
+
 namespace art {
 
 	class Application
@@ -25,6 +28,7 @@ namespace art {
 	private:
 		bool m_running;
 		Window* m_window;
+		GraphicsContext* m_context;
 	};
 
 }
