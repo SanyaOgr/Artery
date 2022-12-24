@@ -1,4 +1,5 @@
 #pragma once
+#include <functional>
 
 namespace art {
 
@@ -21,6 +22,8 @@ namespace art {
 	public:
 		bool IsHandled = false;
 	};
+
+	using EventCallbackFn = std::function<void(art::Event&)>;
 
 #define EVENT_CLASS_TYPE(type)	static EventType GetStaticType() { return EventType::##type; } \
 								virtual EventType GetType() override { return GetStaticType(); }

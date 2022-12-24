@@ -1,6 +1,6 @@
 #include "WindowImpl.h"
 
-#include "Config.h"
+#include "core/Config.h"
 
 #if defined(ARTERY_SYSTEM_WINDOWS)
 
@@ -12,18 +12,28 @@
 namespace art {
 
     // static
-    WindowImpl* WindowImpl::Create(int width, int height, const std::string& title)
+    std::unique_ptr<WindowImpl> WindowImpl::CreatePlatformImpl(const WindowSettings& settings)
     {
-        return new WindowImplType(width, height, title);
+        return std::make_unique<WindowImplType>(settings);
     }
 
-    void WindowImpl::SetEventCallback(const WindowImpl::EventCallbackFn& callback)
+    void WindowImpl::SetEventCallback(const EventCallbackFn& callback)
     {
         m_eventCallback = callback;
     }
 
-    WindowImpl::WindowImpl(int width, int height, const std::string& title)
-        : m_width(width), m_height(height), m_title(title)
+    uint32_t WindowImpl::GetWidth() const
+    {
+        return m_settings.Width;
+    }
+
+    uint32_t WindowImpl::GetHeight() const
+    {
+        return m_settings.Height;
+    }
+
+    WindowImpl::WindowImpl(const WindowSettings& settings)
+        : m_settings(settings)
     {}
 
 }

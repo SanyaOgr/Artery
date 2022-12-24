@@ -1,5 +1,5 @@
 #include "GraphicsContextImpl.h"
-#include "Config.h"
+#include "core/Config.h"
 
 #if defined(ARTERY_SYSTEM_WINDOWS)
 
@@ -10,14 +10,9 @@
 
 namespace art {
 
-    GraphicsContextImpl* GraphicsContextImpl::Create()
+    std::unique_ptr<GraphicsContextImpl> GraphicsContextImpl::CreatePlatformImpl(SystemDeviceContextHandle deviceContext)
     {
-        return new GraphicsContextImplType();
-    }
-
-    GraphicsContextImpl* GraphicsContextImpl::Create(SystemWindowHandle windowHandle)
-    {
-        return new GraphicsContextImplType(windowHandle);
+        return std::make_unique<GraphicsContextImplType>(deviceContext);
     }
 
 }

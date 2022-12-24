@@ -2,38 +2,54 @@
 
 #include <string>
 #include <functional>
+#include <memory>
 
-#include "SystemWindowHandle.h"
 #include "Events/Event.h"
 #include "Events/WindowEvent.h"
+#include "platform/SystemWindowHandle.h"
+#include "platform/SystemContextHandle.h"
 
 namespace art {
+
+	struct WindowSettings
+	{
+		std::string Title;
+		uint32_t Width;
+		uint32_t Height;
+
+		WindowSettings(const std::string& title = "Default Window",
+			uint32_t width = 800,
+			uint32_t height = 600)
+			: Title(title), Width(width), Height(height)
+		{}
+	};
 
 	class WindowImpl
 	{
 	public:
-		using EventCallbackFn = std::function<void(Event&)>;
+		static std::unique_ptr<WindowImpl> CreatePlatformImpl(const WindowSettings& settings);
 
-		static WindowImpl* Create(int width, int height, const std::string& title);
 		virtual ~WindowImpl() = default;
 
 		virtual void SetVisible(bool visible) = 0;
 
 		virtual void ProcessEvents() = 0;
 
-		virtual SystemWindowHandle GetSystemHandle() = 0;
+		virtual SystemWindowHandle GetSystemHandle() const = 0;
 
-		void SetEventCallback(const WindowImpl::EventCallbackFn& callback);
+		virtual SystemDeviceContextHandle GetSystemDeviceContextHandle() const = 0;
+
+		void SetEventCallback(const EventCallbackFn& callback);
+
+		uint32_t GetWidth() const;
+		uint32_t GetHeight() const;
 
 	protected:
-		WindowImpl(int width, int height, const std::string& title);
+		WindowImpl(const WindowSettings& settings);
 
 	protected:
 		EventCallbackFn m_eventCallback;
-
-		std::string m_title;
-		int m_width;
-		int m_height;
+		WindowSettings m_settings;
 	};
 
 }

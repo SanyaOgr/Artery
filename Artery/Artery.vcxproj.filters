@@ -12,24 +12,24 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Application.h" />
-    <ClInclude Include="src\Config.h" />
-    <ClInclude Include="src\Events\Event.h">
+    <ClInclude Include="src\core\Application.h" />
+    <ClInclude Include="src\core\Config.h" />
+    <ClInclude Include="src\events\Event.h">
       <Filter>Events</Filter>
     </ClInclude>
-    <ClInclude Include="src\Events\KeyEvent.h">
+    <ClInclude Include="src\events\KeyEvent.h">
       <Filter>Events</Filter>
     </ClInclude>
-    <ClInclude Include="src\Events\MouseEvent.h">
+    <ClInclude Include="src\events\MouseEvent.h">
       <Filter>Events</Filter>
     </ClInclude>
-    <ClInclude Include="src\Events\WindowEvent.h">
+    <ClInclude Include="src\events\WindowEvent.h">
       <Filter>Events</Filter>
     </ClInclude>
-    <ClInclude Include="src\GraphicsContext.h" />
-    <ClInclude Include="src\Macro.h" />
-    <ClInclude Include="src\Renderer.h" />
-    <ClInclude Include="src\Window.h" />
+    <ClInclude Include="src\graphics\GraphicsContext.h" />
+    <ClInclude Include="src\core\Macro.h" />
+    <ClInclude Include="src\graphics\Renderer.h" />
+    <ClInclude Include="src\window\Window.h" />
     <ClInclude Include="src\platform\GraphicsContextImpl.h">
       <Filter>platform</Filter>
     </ClInclude>
@@ -45,11 +45,17 @@
     <ClInclude Include="src\platform\windows\WindowsWindowImpl.h">
       <Filter>platform\windows</Filter>
     </ClInclude>
+    <ClInclude Include="src\graphics\RenderWindow.h" />
+    <ClInclude Include="src\platform\SystemContextHandle.h" />
+    <ClInclude Include="src\graphics\RendererAPI.h" />
+    <ClInclude Include="src\platform\OpenGL\OpenGLRendererAPI.h" />
+    <ClInclude Include="src\platform\OpenGL\GLAD_Initializer.h" />
+    <ClInclude Include="src\platform\windows\Windows_GLAD_Initializer.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Application.cpp" />
-    <ClCompile Include="src\GraphicsContext.cpp" />
-    <ClCompile Include="src\Window.cpp" />
+    <ClCompile Include="src\core\Application.cpp" />
+    <ClCompile Include="src\graphics\GraphicsContext.cpp" />
+    <ClCompile Include="src\window\Window.cpp" />
     <ClCompile Include="src\platform\GraphicsContextImpl.cpp">
       <Filter>platform</Filter>
     </ClCompile>
@@ -62,5 +68,10 @@
     <ClCompile Include="src\platform\windows\WindowsWindowImpl.cpp">
       <Filter>platform\windows</Filter>
     </ClCompile>
+    <ClCompile Include="src\graphics\RenderWindow.cpp" />
+    <ClCompile Include="src\graphics\RendererAPI.cpp" />
+    <ClCompile Include="src\platform\OpenGL\OpenGLRendererAPI.cpp" />
+    <ClCompile Include="src\platform\OpenGL\GLAD_Initializer.cpp" />
+    <ClCompile Include="src\platform\windows\Windows_GLAD_Initializer.cpp" />
   </ItemGroup>
 </Project>

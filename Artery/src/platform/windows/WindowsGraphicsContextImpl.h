@@ -8,21 +8,23 @@ namespace art::platform {
 	class WindowsGraphicsContextImpl : public GraphicsContextImpl
 	{
 	public:
-		WindowsGraphicsContextImpl();
-		WindowsGraphicsContextImpl(SystemWindowHandle windowHandle);
+		WindowsGraphicsContextImpl(SystemDeviceContextHandle deviceContext);
 		~WindowsGraphicsContextImpl();
 
-		void SetActive(bool active = true); 
+		SystemGLContextHandle GetSystemGLContextHandle() const override;
+
+		void SetCurrentDeviceContext(SystemDeviceContextHandle deviceContext) override;
+
+		virtual void SetActive(bool current = true) override;
+
 		void SwapBuffers() override;
 
 	private:
-		void createSurface(HWND window);
-		void initGLAD();
+		void create(HDC deviceContext);
 
 	private:
-		HWND m_attachedWindow;
-		HDC m_deviceContext;
 		HGLRC m_glContext;
+		HDC m_attachedDeviceContext;
 	};
 
 }

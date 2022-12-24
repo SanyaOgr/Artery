@@ -1,31 +1,34 @@
 #include "Application.h"
 
 #include <iostream>
-#include "Macro.h"
+#include "core/Macro.h"
 
 namespace art {
 
-	Application::Application()
-		: m_running(true)
-	{
-		m_window = new Window(600, 400, "Cringe");
-		m_window->SetEventCallback(ART_BIND_EVENT_FN(Application::OnEvent));
+    Application::Application()
+        : m_running(true), 
+        m_window(WindowSettings{ "Cringe", 600, 400 }), 
+        m_window2(WindowSettings{ "Cringe 2", 200, 200 })
+    {
+        m_rendererAPI = RendererAPI::CreatePlatformImpl();
+        m_rendererAPI->Init();
 
-		m_context = new GraphicsContext(*m_window);
+		m_window.SetEventCallback(ART_FORWARD_EVENT_FN(Application::OnEvent));
+        m_window2.SetEventCallback(ART_FORWARD_EVENT_FN(Application::OnEvent2));
 
-		std::cout << "gladLoadGL -> " << gladLoadGL() << "\n";
+        m_context = std::make_unique<GraphicsContext>(m_window);
+        m_context->SetCurrentDeviceContext(m_window.GetSystemDeviceContextHandle());
+
+        m_context->SetActive();
 	}
 
 	Application::~Application()
 	{
-		delete m_context;
-		delete m_window;
 	}
 
 	void Application::Run()
 	{
 		std::cout << "Running\n";
-
 
         // OPENGL TEST CODE -----------------------------------------------------------------------------------------------
 
@@ -85,8 +88,8 @@ namespace art {
         // set up vertex data (and buffer(s)) and configure vertex attributes
         // ------------------------------------------------------------------
         float vertices[] = {
-                0.5f,  0.5f, 0.0f,  // top right
-                0.5f, -0.5f, 0.0f,  // bottom right
+             0.5f,  0.5f, 0.0f,  // top right
+             0.5f, -0.5f, 0.0f,  // bottom right
             -0.5f, -0.5f, 0.0f,  // bottom left
             -0.5f,  0.5f, 0.0f   // top left 
         };
@@ -122,23 +125,32 @@ namespace art {
 
         // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-		glViewport(0, 0, 600, 400);
-
 		while (m_running)
 		{
-			m_window->Update();
+            m_context->SetCurrentDeviceContext(m_window.GetSystemDeviceContextHandle());
+            m_context->SetActive();
+            m_window.OnUpdate();
 
-            glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-            glClear(GL_COLOR_BUFFER_BIT);
+            m_rendererAPI->SetClearColor(0.2f, 0.3f, 0.3f, 1.f);
+            m_rendererAPI->Clear();
 
             // draw our first triangle
             glUseProgram(shaderProgram);
             glBindVertexArray(VAO); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
-            //glDrawArrays(GL_TRIANGLES, 0, 6);
+            glDrawArrays(GL_TRIANGLES, 0, 6);
+            //glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+            
+            m_context->SwapBuffers();
+
+            m_context->SetCurrentDeviceContext(m_window2.GetSystemDeviceContextHandle());
+            m_context->SetActive();
+            m_window2.OnUpdate();
+
+            //m_rendererAPI->Clear();
             glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
-			m_context->SwapBuffers();
-		}
+            m_context->SwapBuffers();
+        }
 		
 		std::cout << "Stopped\n";
 	}
@@ -147,25 +159,45 @@ namespace art {
 	{
 		EventDispatcher dispatcher(e);
 
-		dispatcher.Dispatch<WindowClosedEvent>(ART_BIND_EVENT_FN(Application::OnWindowClosed));
-		dispatcher.Dispatch<WindowResizedEvent>(ART_BIND_EVENT_FN(Application::OnWindowResized));
+		dispatcher.Dispatch<WindowClosedEvent>(ART_FORWARD_EVENT_FN(Application::onWindowClosed));
+		dispatcher.Dispatch<WindowResizedEvent>(ART_FORWARD_EVENT_FN(Application::onWindowResized));
 	}
+
+    void Application::OnEvent2(Event& e)
+    {
+        EventDispatcher dispatcher(e);
+
+        dispatcher.Dispatch<WindowResizedEvent>(ART_FORWARD_EVENT_FN(Application::onWindowResized2));
+    }
 
 	void Application::Close()
 	{
 		m_running = false;
 	}
 
-	bool Application::OnWindowClosed(WindowClosedEvent& e)
+    void Application::init()
+    {
+
+    }
+
+	bool Application::onWindowClosed(WindowClosedEvent& e)
 	{
 		Close();
 		return true;
 	}
 
-	bool Application::OnWindowResized(WindowResizedEvent& e)
+	bool Application::onWindowResized(WindowResizedEvent& e)
 	{
 		std::cout << "Window Size: " << e.GetWidth() << "x" << e.GetHeight() << "\n";
+        m_rendererAPI->SetViewport(0, 0, e.GetWidth(), e.GetHeight());
 		return true;
 	}
+
+    bool Application::onWindowResized2(WindowResizedEvent& e)
+    {
+        std::cout << "Window 2 Size: " << e.GetWidth() << "x" << e.GetHeight() << "\n";
+        m_rendererAPI->SetViewport(0, 0, e.GetWidth(), e.GetHeight());
+        return true;
+    }
 
 }
