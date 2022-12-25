@@ -1,6 +1,0 @@
-[submodule "Artery/vendor/GLAD"]
-	path = Artery/vendor/GLAD
-	url = https://github.com/SanyaOgr/GLAD.git
-[submodule "Artery/vendor/spdlog"]
-	path = Artery/vendor/spdlog
-	url = https://github.com/gabime/spdlog.git
