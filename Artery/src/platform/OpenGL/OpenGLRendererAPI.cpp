@@ -1,7 +1,6 @@
-#include "platform/OpenGL/OpenGLRendererAPI.h"
+#include "artpch.h"
 
-#include <glad/glad.h>
-#include <iostream>
+#include "platform/OpenGL/OpenGLRendererAPI.h"
 #include "platform/OpenGL/GLAD_Initializer.h"
 
 namespace art {

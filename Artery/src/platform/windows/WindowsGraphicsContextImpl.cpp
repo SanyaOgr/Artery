@@ -1,6 +1,6 @@
-#include "WindowsGraphicsContextImpl.h"
+#include "artpch.h"
 
-#include <glad/glad.h>
+#include "WindowsGraphicsContextImpl.h"
 
 namespace art::platform {
 

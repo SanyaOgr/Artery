@@ -1,6 +1,5 @@
+#include "artpch.h"
 #include "GLAD_Initializer.h"
-
-#include "core/Config.h"
 
 #if defined(ARTERY_SYSTEM_WINDOWS)
 
@@ -13,19 +12,19 @@
 
 namespace art {
 
-	std::unique_ptr<GLAD_Initializer> GLAD_Initializer::m_platformImpl;
-	bool GLAD_Initializer::initialized = false;
+	ScopePtr<GLAD_Initializer> GLAD_Initializer::s_platformImpl;
+	bool GLAD_Initializer::s_initialized = false;
 
-	std::unique_ptr<GLAD_Initializer>& GLAD_Initializer::Get()
+	ScopePtr<GLAD_Initializer>& GLAD_Initializer::Get()
 	{
-		if (!initialized)
+		if (!s_initialized)
 		{
-			m_platformImpl = create();
+			s_platformImpl = create();
 		}
-		return m_platformImpl;
+		return s_platformImpl;
 	}
 
-	std::unique_ptr<GLAD_Initializer> GLAD_Initializer::create()
+	ScopePtr<GLAD_Initializer> GLAD_Initializer::create()
 	{
 		return std::make_unique<GLAD_InitializerType>();
 	}

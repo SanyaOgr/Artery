@@ -1,3 +1,4 @@
+#include "artpch.h"
 #include "GraphicsContext.h"
 
 namespace art {

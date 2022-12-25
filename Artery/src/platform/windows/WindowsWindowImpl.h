@@ -1,7 +1,5 @@
 #pragma once
 
-#include <Windows.h>
-
 #include "platform/WindowImpl.h"
 #include "platform/SystemContextHandle.h"
 

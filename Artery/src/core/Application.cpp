@@ -1,23 +1,23 @@
+#include "artpch.h"
 #include "Application.h"
-
-#include <iostream>
-#include "core/Macro.h"
 
 namespace art {
 
     Application::Application()
-        : m_running(true), 
-        m_window(WindowSettings{ "Cringe", 600, 400 }), 
-        m_window2(WindowSettings{ "Cringe 2", 200, 200 })
     {
+        Log::Init();
+
         m_rendererAPI = RendererAPI::CreatePlatformImpl();
         m_rendererAPI->Init();
 
-		m_window.SetEventCallback(ART_FORWARD_EVENT_FN(Application::OnEvent));
-        m_window2.SetEventCallback(ART_FORWARD_EVENT_FN(Application::OnEvent2));
+        m_window = std::make_unique<Window>(WindowSettings{ "Cringe", 600, 400 });
+        m_window2 = std::make_unique<Window>(WindowSettings{ "Cringe 2", 200, 200 });
 
-        m_context = std::make_unique<GraphicsContext>(m_window);
-        m_context->SetCurrentDeviceContext(m_window.GetSystemDeviceContextHandle());
+		m_window->SetEventCallback(ART_FORWARD_EVENT_FN(Application::OnEvent));
+        m_window2->SetEventCallback(ART_FORWARD_EVENT_FN(Application::OnEvent2));
+
+        m_context = std::make_unique<GraphicsContext>(*m_window);
+        m_context->SetCurrentDeviceContext(m_window->GetSystemDeviceContextHandle());
 
         m_context->SetActive();
 	}
@@ -28,7 +28,8 @@ namespace art {
 
 	void Application::Run()
 	{
-		std::cout << "Running\n";
+        m_running = true;
+        ART_INFO("Application Run");
 
         // OPENGL TEST CODE -----------------------------------------------------------------------------------------------
 
@@ -127,9 +128,9 @@ namespace art {
 
 		while (m_running)
 		{
-            m_context->SetCurrentDeviceContext(m_window.GetSystemDeviceContextHandle());
+            m_context->SetCurrentDeviceContext(m_window->GetSystemDeviceContextHandle());
             m_context->SetActive();
-            m_window.OnUpdate();
+            m_window->OnUpdate();
 
             m_rendererAPI->SetClearColor(0.2f, 0.3f, 0.3f, 1.f);
             m_rendererAPI->Clear();
@@ -137,22 +138,22 @@ namespace art {
             // draw our first triangle
             glUseProgram(shaderProgram);
             glBindVertexArray(VAO); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
-            glDrawArrays(GL_TRIANGLES, 0, 6);
-            //glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+            //glDrawArrays(GL_TRIANGLES, 0, 6);
+            glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
             
             m_context->SwapBuffers();
 
-            m_context->SetCurrentDeviceContext(m_window2.GetSystemDeviceContextHandle());
+            m_context->SetCurrentDeviceContext(m_window2->GetSystemDeviceContextHandle());
             m_context->SetActive();
-            m_window2.OnUpdate();
+            m_window2->OnUpdate();
 
-            //m_rendererAPI->Clear();
+            m_rendererAPI->Clear();
             glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
             m_context->SwapBuffers();
         }
 		
-		std::cout << "Stopped\n";
+        ART_INFO("Application Stopped");
 	}
 
 	void Application::OnEvent(Event& e)
@@ -171,31 +172,27 @@ namespace art {
     }
 
 	void Application::Close()
-	{
+    {
 		m_running = false;
 	}
 
-    void Application::init()
-    {
-
-    }
-
 	bool Application::onWindowClosed(WindowClosedEvent& e)
 	{
+        ART_TRACE("{0}: ClosedEvent", m_window->GetTitle());
 		Close();
 		return true;
 	}
 
 	bool Application::onWindowResized(WindowResizedEvent& e)
 	{
-		std::cout << "Window Size: " << e.GetWidth() << "x" << e.GetHeight() << "\n";
+        ART_TRACE("{0}: ResizedEvent {1}x{2}", m_window->GetTitle(), e.GetWidth(), e.GetHeight());
         m_rendererAPI->SetViewport(0, 0, e.GetWidth(), e.GetHeight());
 		return true;
 	}
 
     bool Application::onWindowResized2(WindowResizedEvent& e)
     {
-        std::cout << "Window 2 Size: " << e.GetWidth() << "x" << e.GetHeight() << "\n";
+        ART_TRACE("{0}: ResizedEvent {1}x{2}", m_window2->GetTitle(), e.GetWidth(), e.GetHeight());
         m_rendererAPI->SetViewport(0, 0, e.GetWidth(), e.GetHeight());
         return true;
     }

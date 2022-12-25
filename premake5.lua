@@ -13,7 +13,8 @@ workspace "Artery"
 
 	IncludeDir = {}
 	IncludeDir["GLAD"] = "%{wks.location}/Artery/vendor/GLAD/include"
-	IncludeDir["GLFW"] = "%{wks.location}/Artery/vendor/GLFW/include"
+	IncludeDir["spdlog"] = "%{wks.location}/Artery/vendor/spdlog/include"
+	--IncludeDir["GLFW"] = "%{wks.location}/Artery/vendor/GLFW/include"
 
 	--LibraryDir = {}
 	--LibraryDir["GLAD"] = "Artery/vendor/GLAD/bin/" .. outputdir .. "/GLAD"
@@ -23,7 +24,7 @@ workspace "Artery"
 	
 	--group "Dependencies"
 		include "Artery/vendor/GLAD"
-		include "Artery/vendor/GLFW"
+		--include "Artery/vendor/GLFW"
 	--group ""
 
 	include "Artery"

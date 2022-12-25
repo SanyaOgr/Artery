@@ -1,7 +1,9 @@
 #pragma once
 
-#include <glad/glad.h>
 #include "GraphicsContext.h"
+#include "RendererAPI.h"
+
+#include "core/Base.h"
 
 namespace art {
 
@@ -10,11 +12,15 @@ namespace art {
 	class Renderer
 	{
 	public:
-		Renderer();
-		virtual ~Renderer();
+		static void Init();
+		static void Shutdown();
 
-		static void Draw(GraphicsContext& context, VertexBuffer vb /* prototype */);
-		static void Display(GraphicsContext& context);
+		static void Draw(const GraphicsContext& context, VertexBuffer vb /* prototype */);
+
+		static RendererAPI::API GetAPI();
+
+	private:
+		static ScopePtr<RendererAPI> s_renderAPI;
 	};
 
 }

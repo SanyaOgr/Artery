@@ -1,3 +1,4 @@
+#include "artpch.h"
 #include "RenderWindow.h"
 
 namespace art {

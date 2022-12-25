@@ -1,6 +1,6 @@
 #pragma once
-#include <memory>
 
+#include "core/Base.h"
 #include "platform/SystemContextHandle.h"
 #include "platform/GraphicsContextImpl.h"
 #include "window/Window.h"
@@ -22,7 +22,7 @@ namespace art {
 		void SetActive(bool current = true);
 
 	private:
-		std::unique_ptr<GraphicsContextImpl> m_platformImpl;
+		ScopePtr<GraphicsContextImpl> m_platformImpl;
 
 	};
 

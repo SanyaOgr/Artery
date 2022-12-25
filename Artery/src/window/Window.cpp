@@ -1,5 +1,6 @@
-#include "Window.h"
-#include <iostream>
+#include "artpch.h"
+
+#include "window/Window.h"
 
 namespace art {
 
@@ -36,6 +37,11 @@ namespace art {
 	uint32_t Window::GetHeight() const
 	{
 		return m_platformImpl->GetHeight();
+	}
+
+	std::string Window::GetTitle() const
+	{
+		return m_platformImpl->GetTitle();
 	}
 
 	SystemWindowHandle Window::GetSystemHandle() const

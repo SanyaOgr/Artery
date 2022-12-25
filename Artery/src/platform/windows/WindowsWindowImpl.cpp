@@ -1,6 +1,6 @@
-#include "WindowsWindowImpl.h"
+#include "artpch.h"
 
-#include <iostream>
+#include "WindowsWindowImpl.h"
 
 namespace art::platform {
 	

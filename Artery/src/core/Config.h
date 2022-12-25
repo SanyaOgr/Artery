@@ -11,8 +11,14 @@
 
 #endif
 
-#if defined(_DEBUG)
+#if defined(ARTERY_DEBUG)
+	
+	#if defined(ARTERY_SYSTEM_WINDOWS)
+		#define ART_DEBUGBREAK() __debugbreak()
+	#else
+		#define ART_DEBUGBREAK()
+	#endif
 
-#define ARTERY_DEBUG
+	#define ARTERY_ENABLE_ASSERTS
 
 #endif

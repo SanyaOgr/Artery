@@ -1,5 +1,5 @@
+#include "artpch.h"
 #include "RendererAPI.h"
-#include "core/Config.h"
 
 #if defined(ARTERY_RENDERER_OPENGL)
 
@@ -12,7 +12,7 @@ namespace art {
 
 namespace art {
 
-	std::unique_ptr<RendererAPI> RendererAPI::CreatePlatformImpl()
+	ScopePtr<RendererAPI> RendererAPI::CreatePlatformImpl()
 	{
 		return std::make_unique<RendererAPI_Type>();
 	}

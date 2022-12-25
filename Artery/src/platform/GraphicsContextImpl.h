@@ -1,8 +1,7 @@
 #pragma once
 
+#include "core/Base.h"
 #include "WindowImpl.h"
-#include <Windows.h>
-
 #include "platform/SystemContextHandle.h"
 
 namespace art {
@@ -12,7 +11,7 @@ namespace art {
 	public:
 		virtual ~GraphicsContextImpl() = default;
 
-		static std::unique_ptr<GraphicsContextImpl> CreatePlatformImpl(SystemDeviceContextHandle deviceContext);
+		static ScopePtr<GraphicsContextImpl> CreatePlatformImpl(SystemDeviceContextHandle deviceContext);
 
 		virtual SystemGLContextHandle GetSystemGLContextHandle() const = 0;
 

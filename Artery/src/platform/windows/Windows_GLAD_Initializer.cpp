@@ -1,5 +1,6 @@
-#include "platform/windows/Windows_GLAD_Initializer.h"
+#include "artpch.h"
 
+#include "platform/windows/Windows_GLAD_Initializer.h"
 #include "platform/windows/WindowsWindowImpl.h"
 #include "platform/windows/WindowsGraphicsContextImpl.h"
 
@@ -7,7 +8,7 @@ namespace art {
 
 	void Windows_GLAD_Initializer::Init()
 	{
-		std::unique_ptr<WindowImpl> fakeWnd = WindowImpl::CreatePlatformImpl(WindowSettings());
+		ScopePtr<WindowImpl> fakeWnd = WindowImpl::CreatePlatformImpl(WindowSettings());
 		HDC deviceContext = ::GetDC(fakeWnd->GetSystemHandle());
 		HGLRC glContext = ::wglCreateContext(deviceContext);
 		::wglMakeCurrent(deviceContext, glContext);

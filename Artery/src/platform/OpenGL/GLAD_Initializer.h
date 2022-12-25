@@ -1,7 +1,4 @@
 #pragma once
-#include <memory>
-
-#include <glad/glad.h>
 
 namespace art {
 
@@ -12,17 +9,17 @@ namespace art {
 
 		virtual void Init() = 0;
 
-		static std::unique_ptr<GLAD_Initializer>& Get();
+		static ScopePtr<GLAD_Initializer>& Get();
 
 	protected:
 		GLAD_Initializer() = default;
 
 	private:
-		static std::unique_ptr<GLAD_Initializer> create();
+		static ScopePtr<GLAD_Initializer> create();
 
 	private:
-		static std::unique_ptr<GLAD_Initializer> m_platformImpl;
-		static bool initialized;
+		static ScopePtr<GLAD_Initializer> s_platformImpl;
+		static bool s_initialized;
 	};
 
 }

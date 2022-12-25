@@ -1,5 +1,4 @@
 #pragma once
-#include <memory>
 
 #include "window/Window.h"
 #include "Events/Event.h"
@@ -25,8 +24,6 @@ namespace art {
 		void Close();
 
 	private:
-		void init();
-
 		bool onWindowClosed(WindowClosedEvent& e);
 		bool onWindowResized(WindowResizedEvent& e);
 
@@ -34,11 +31,11 @@ namespace art {
 
 	private:
 		bool m_running;
-		Window m_window;
-		Window m_window2;
-		std::unique_ptr<GraphicsContext> m_context;
+		ScopePtr<Window> m_window;
+		ScopePtr<Window> m_window2;
+		ScopePtr<GraphicsContext> m_context;
 
-		std::unique_ptr<RendererAPI> m_rendererAPI;
+		ScopePtr<RendererAPI> m_rendererAPI;
 	};
 
 }

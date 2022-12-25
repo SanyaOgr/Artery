@@ -15,6 +15,7 @@ project "Sandbox"
 
 	includedirs
 	{
+		"%{wks.location}/Artery/vendor/spdlog/include",
 		"%{wks.location}/Artery/src",
 		"%{wks.location}/Artery/vendor",
 		"%{IncludeDir.GLAD}"

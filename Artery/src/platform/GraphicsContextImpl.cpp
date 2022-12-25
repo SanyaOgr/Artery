@@ -1,5 +1,6 @@
+#include "artpch.h"
+
 #include "GraphicsContextImpl.h"
-#include "core/Config.h"
 
 #if defined(ARTERY_SYSTEM_WINDOWS)
 
@@ -10,7 +11,7 @@
 
 namespace art {
 
-    std::unique_ptr<GraphicsContextImpl> GraphicsContextImpl::CreatePlatformImpl(SystemDeviceContextHandle deviceContext)
+    ScopePtr<GraphicsContextImpl> GraphicsContextImpl::CreatePlatformImpl(SystemDeviceContextHandle deviceContext)
     {
         return std::make_unique<GraphicsContextImplType>(deviceContext);
     }

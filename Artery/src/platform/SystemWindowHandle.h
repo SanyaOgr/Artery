@@ -1,4 +1,5 @@
 #pragma once
+
 #include "core/Config.h"
 
 #if defined(ARTERY_SYSTEM_WINDOWS)

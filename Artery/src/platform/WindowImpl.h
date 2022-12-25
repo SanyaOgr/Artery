@@ -1,9 +1,8 @@
 #pragma once
 
 #include <string>
-#include <functional>
-#include <memory>
 
+#include "core/Base.h"
 #include "Events/Event.h"
 #include "Events/WindowEvent.h"
 #include "platform/SystemWindowHandle.h"
@@ -27,7 +26,7 @@ namespace art {
 	class WindowImpl
 	{
 	public:
-		static std::unique_ptr<WindowImpl> CreatePlatformImpl(const WindowSettings& settings);
+		static ScopePtr<WindowImpl> CreatePlatformImpl(const WindowSettings& settings);
 
 		virtual ~WindowImpl() = default;
 
@@ -43,6 +42,7 @@ namespace art {
 
 		uint32_t GetWidth() const;
 		uint32_t GetHeight() const;
+		std::string GetTitle() const;
 
 	protected:
 		WindowImpl(const WindowSettings& settings);

@@ -1,9 +1,10 @@
 #pragma once
-#include <string>
-#include <memory>
 
+#include <string>
+
+#include "core/Base.h"
+#include "events/Event.h"
 #include "platform/WindowImpl.h"
-#include "Events/Event.h"
 #include "platform/SystemContextHandle.h"
 
 namespace art {
@@ -26,9 +27,10 @@ namespace art {
 
 		uint32_t GetWidth() const;
 		uint32_t GetHeight() const;
+		std::string GetTitle() const;
 
 	private:
-		std::unique_ptr<WindowImpl> m_platformImpl;
+		ScopePtr<WindowImpl> m_platformImpl;
 	};
 
  }
